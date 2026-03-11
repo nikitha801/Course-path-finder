@@ -1,8 +1,8 @@
-🎓 Course Path Finder
+Course Path Finder
 
 The Course Path Finder is a simple, web-based application built with Python and Flask. It helps users (simulating engineering students) find relevant online courses based on their specific Engineering Branch and Personal Interest.
 
-✨ Features
+Features
 
 User Authentication: Simple in-memory Sign-Up and Log-In functionality.
 
@@ -12,7 +12,7 @@ Tailored Results: The application cross-references the selected branch and inter
 
 Session Management: Keeps track of the logged-in user session.
 
-🛠️ Technologies Used
+Technologies Used
 
 Backend: Python 3
 
