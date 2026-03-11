@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard | Course Path Finder</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        body { background: #f5f3fc; font-family: Arial, sans-serif; }
+        .navbar { background: #94446c; padding: 18px 0; color: #fff; text-align: center;}
+        .navbar span { float: left; margin-left: 18px;}
+        .navbar a { color: #fff; float: right; margin-right: 18px; text-decoration:none; }
+        .container { max-width: 900px; margin: 34px auto; background: #fff; padding: 32px; border-radius: 12px; box-shadow: 0 5px 24px #e2d2e9;}
+        .flex { display: flex; gap: 32px;}
+        .side { flex: 1; padding-top: 18px;}
+        .main { flex: 2;}
+        select, button { width: 100%; margin-bottom: 14px; padding: 9px; border-radius: 4px; border: 1px solid #e3cbe3; }
+        button { background: #94446c; color: #fff; font-weight: bold; border: 0; }
+        button:hover { background: #b83290; }
+        .course-card { background: #f6e5f1; border-radius: 10px; padding: 22px; margin-bottom: 16px; box-shadow: 0 2px 7px #e2d2e9;}
+        .header { display: flex; justify-content: space-between; }
+        .c-title { font-size: 1.1em; font-weight: bold;}
+        .c-level { background: #ebdb91; padding:4px 18px; border-radius: 22px; font-weight: bold;}
+        .c-category { color: #af2182; font-weight: bold;}
+        .rating { color: #b7a502; font-weight:bold;}
+        .explore-link { background: #af2182; color: #fff; padding: 5px 14px; border-radius: 7px; text-decoration: none; display:inline-block; margin-top: 10px;}
+
+        @media (max-width: 800px) {
+            .flex { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span>Welcome, {{username}}</span>
+        <a href="{{url_for('logout')}}">Logout</a>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="container">
+        <div class="flex">
+            <div class="side">
+                <h4>Career Guidance</h4>
+                <ul>
+                    <li><b>Identify Interests:</b> List subjects you enjoy.</li>
+                    <li><b>Research Careers:</b> Explore job prospects.</li>
+                    <li><b>Future Prospects:</b> Review industry trends.</li>
+                    <li><b>Mentorship:</b> Connect with professionals.</li>
+                </ul>
+                <h4 style="margin-top:22px;">How It Works</h4>
+                <ol>
+                    <li><b>Select Profile</b>: Choose branch & interest</li>
+                    <li><b>Get Recommendations</b>: Personalized suggestions</li>
+                    <li><b>Explore & Enroll</b>: Join courses you like</li>
+                </ol>
+            </div>
+            <div class="main">
+                <h2>Course Finder</h2>
+                <form method="post">
+                    <select name="branch" required>
+                        <option value="">Select Branch</option>
+                        {% for b in branches %}
+                        <option value="{{b}}" {% if branch==b %}selected{% endif %}>{{b}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="interest" required>
+                        <option value="">Select Interest</option>
+                        {% for i in interests %}
+                        <option value="{{i}}" {% if interest==i %}selected{% endif %}>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Find Courses</button>
+                </form>
+                {% if courses %}
+                <h3 style="margin-top:28px;">Recommended Courses</h3>
+                {% for course in courses %}
+                <div class="course-card">
+                    <div class="header">
+                        <span class="c-title">{{course.title}}</span>
+                        <span class="c-level">{{course.level}}</span>
+                    </div>
+                    <div class="c-category">{{course.category}}</div>
+                    <div><span class="rating">★</span> {{course.rating}} | {{course.students}} students</div>
+                    <div>{{course.description}}</div>
+                    <div>Platform: {{course.platform}} | Duration: {{course.duration}}</div>
+                    <a class="explore-link" href="{{course.link}}" target="_blank">Explore on {{course.platform}}</a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
